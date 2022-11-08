@@ -1,3 +1,14 @@
+# Ignore
+
 log/*
 airflow/*
 DE1/*
+
+# But not these files...
+
+log/.gitignore
+airflow/.gitignore
+DE1/.gitignore
+
+
+
