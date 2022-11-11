@@ -3,12 +3,15 @@
 log/*
 airflow/*
 DE1/*
+hadoop/*
+hive/*
 
 # But not these files...
 
 log/.gitignore
 airflow/.gitignore
 DE1/.gitignore
-
+hadoop/.gitignore
+hive/.gitignore
 
 

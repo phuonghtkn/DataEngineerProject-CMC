@@ -34,3 +34,7 @@ else
     airflow scheduler -D > log/airflow_scheduler.log 2> log/airflow_scheduler.log &
     echo "airflow is running"
 fi
+
+export PATH=$PATH:$(pwd)/hadoop/hadoop-3.3.4/bin:$(pwd)/hive/apache-hive-3.1.3-bin/bin
+#run hive?
+
