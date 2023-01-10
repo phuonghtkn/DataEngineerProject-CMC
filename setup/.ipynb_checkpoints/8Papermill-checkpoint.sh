@@ -1,6 +1,9 @@
 #!/bin/bash
 
-source DE1/bin/activate
+SCRIPT=$(readlink -f "$0")
+SCRIPTPATH=$(dirname "$SCRIPT")
+
+source $SCRIPTPATH/../DE1/bin/activate
 
 
 pip install papermill
