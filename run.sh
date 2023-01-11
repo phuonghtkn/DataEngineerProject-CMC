@@ -20,7 +20,7 @@ rm -rf $SCRIPTPATH/log/*
 # then
 #     echo "jupyter-lab was ran"
 # else
-#     jupyter-lab > $SCRIPTPATH/log/jupyter-lab.log 2> $SCRIPTPATH/log/jupyter-lab-error.log &
+#     jupyter-lab --ip=0.0.0.0 > $SCRIPTPATH/log/jupyter-lab.log 2> $SCRIPTPATH/log/jupyter-lab-error.log &
 #     echo "jupyter-lab is running"
 # fi
 
