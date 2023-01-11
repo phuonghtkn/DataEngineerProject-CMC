@@ -99,6 +99,8 @@ class FakeAccountGenerator:
             "defaultcustomerid": 10000000,
             "customerid": 10000000,
         }
+        self.initConfigFile()
+    def initConfigFile(self):
         for file in self.id_config.keys():
             file_exist = os.path.exists(CONFIG_FILE_PATH_PREFIX + file)
             if file_exist:
@@ -118,7 +120,6 @@ class FakeAccountGenerator:
                 realFile.seek(0)
                 realFile.write(str(self.id_config[file]))
                 realFile.close()
-
     def __del__(self):
         self.stop_spark()
 
@@ -199,7 +200,11 @@ class FakeAccountGenerator:
             OUTPUT_TMP_FILE_PATH_PREFIX + self.file_name,
             OUTPUT_FILE_PATH_PREFIX + self.file_name,
         )
-
+    def checkBankCustomerInitStatus(self):
+        if self.id_config["customerid"] > self.id_config["defaultcustomerid"]:
+            return True
+        else:
+            return False
 
 class BankCustomer:
     customer_type = {
@@ -362,6 +367,8 @@ class FakeCustomerGenerator:
             "company_identitynumber": 111111111,
             "taxcode": 0,
         }
+        self.initConfigFile()
+    def initConfigFile(self):
         for file in self.id_config.keys():
             file_exist = os.path.exists(CONFIG_FILE_PATH_PREFIX + file)
             if file_exist:
@@ -383,7 +390,6 @@ class FakeCustomerGenerator:
                 realFile.seek(0)
                 realFile.write(str(self.id_config[file]))
                 realFile.close()
-
     def __del__(self):
         self.stop_spark()
 
@@ -488,7 +494,7 @@ class FakeCustomerGenerator:
         )
 
 
-class TransactionObject:
+class BankTransactionRecord:
     tracsaction_type_dim = {
         1: "cash withdrawals",
         2: "checks",
@@ -501,8 +507,8 @@ class TransactionObject:
     transaction_point_dim = {1: "ATM", 2: "BankingApp", 3: "PostMachine"}
     fake = faker.Faker()
 
-    def __init__(self, accountid):
-        self.transactionid = accountid
+    def __init__(self, transactionid):
+        self.transactionid = transactionid
         self.amount = random.randint(1, 10000)
         self.timestamp = self.fake.date()
         __TypeTransactionDim = random.choice(
@@ -559,6 +565,8 @@ class FakeTransactionGenerator:
             "defaultaccountid": 10000000,
             "transactionid": 0,
         }
+        self.initConfigFile()
+    def initConfigFile(self):
         for file in self.id_config.keys():
             file_exist = os.path.exists(CONFIG_FILE_PATH_PREFIX + file)
             if file_exist:
@@ -580,7 +588,6 @@ class FakeTransactionGenerator:
                 realFile.seek(0)
                 realFile.write(str(self.id_config[file]))
                 realFile.close()
-
     def __del__(self):
         self.stop_spark()
 
@@ -598,7 +605,7 @@ class FakeTransactionGenerator:
 
     def create_data(self, NumbefOfRow):
         for _ in range(NumbefOfRow):
-            bank_account_record = TransactionObject(
+            bank_account_record = BankTransactionRecord(
                 self.id_config["accountid"]
             )
             self.id_config["accountid"] += 1
@@ -652,3 +659,8 @@ class FakeTransactionGenerator:
             OUTPUT_TMP_FILE_PATH_PREFIX + self.file_name,
             OUTPUT_FILE_PATH_PREFIX + self.file_name,
         )
+    def checkBankAccountInitStatus(self):
+        if self.id_config["accountid"] > self.id_config["defaultaccountid"]:
+            return True
+        else:
+            return False

@@ -7,6 +7,7 @@ list = account.create_data(1000)
 print(list[0])
 print(list[1].head())
 account.to_file()
+print(account.checkBankCustomerInitStatus())
 
 account.stop_spark()
 
@@ -28,6 +29,7 @@ list = transaction.create_data(1000)
 print(list[0])
 print(list[1].head())
 transaction.to_file()
+print(transaction.checkBankAccountInitStatus())
 
 transaction.stop_spark()
 
